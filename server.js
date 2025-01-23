@@ -2,6 +2,27 @@
 const express = require('express');
 const app = express();
 
+
+const statusCode ={
+  200: "OK: The request has succeeded. The meaning of this status depends on the HTTP method used.",
+  404: "Not Found: The server has not found anything matching the request URI. This is often caused by a missing page or resource.",
+  500: "Internal Server Error: The server encountered an unexpected condition that prevented it from fulfilling the request.",
+  400:  "Bad Request: The server cannot process the request due to client-side errors (e.g., malformed syntax)."
+};
+
+app.get('/status-info',(req,res)=>{
+  const code = req.query.code;
+  const message = statusCode[code];
+
+  if (message) {
+    res.json({code, message });
+
+
+}});
+
+
+
+
 /*
 Task:
 You need to create an API that helps users understand different HTTP status codes and their meanings.
@@ -50,7 +71,7 @@ List of Status Codes to Handle:
 200, 201, 204, 400, 401, 403, 404, 405, 429, 500, 502, 503, 504
 */
 
-const PORT = 3000;
+const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Status Code API is running on http://localhost:${PORT}`);
 });
